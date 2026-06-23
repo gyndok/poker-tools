@@ -1,0 +1,17 @@
+{
+  "name": "poker-tools",
+  "owner": {
+    "name": "Geffrey"
+  },
+  "description": "Community poker tools for Claude — GTO hand review and player-stat analysis for America's Cardroom / WPN hand histories.",
+  "plugins": [
+    {
+      "name": "poker-hand-review",
+      "source": "./plugins/poker-hand-review",
+      "description": "Review an ACR/WPN poker session hand-by-hand with blunt GTO analysis, ICM/stack-depth adjustments, and tracker stats (VPIP, PFR, 3-Bet, C-Bet, WTSD…) with a play-style read.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "keywords": ["poker", "gto", "acr", "americas-cardroom", "wpn", "hand-history", "tournament", "vpip", "study"]
+    }
+  ]
+}
