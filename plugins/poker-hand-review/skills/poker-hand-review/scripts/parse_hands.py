@@ -77,6 +77,9 @@ def hand_rows(files, hero):
         for h in re.split(r"(?=Game Hand #)", txt):
             if hero not in h:
                 continue
+            # skip forced blind-off / away hands (site marks the hero "is sitting out")
+            if re.search(rf"Seat \d+: {re.escape(hero)} \([\d.]+\) is sitting out", h):
+                continue
             d = split_streets(h)
             pre = d.get("HOLE CARDS", "")
             acts = [l.split(hero + " ", 1)[1] for l in pre.splitlines() if l.startswith(hero + " ")]

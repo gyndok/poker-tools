@@ -69,13 +69,54 @@ def flop_seq(hand):
     return out
 
 
-def compute(files, hero):
-    H = dict(hands=0, vpip=0, pfr=0, tb_opp=0, tb=0, f3b_opp=0, f3b=0,
-             cb_opp=0, cb=0, fcb_opp=0, fcb=0, saw_flop=0, wtsd=0, wsd=0)
+def _hand_id(h):
+    m = re.search(r"Game Hand #(\d+)", h)
+    return m.group(1) if m else None
+
+
+def _voluntary(h, hero):
+    """True if hero raised/bet/called anywhere in the hand (forced blinds/antes
+    and checks do NOT count as voluntary)."""
+    for l in h.splitlines():
+        if l.startswith(hero + " "):
+            a = l.split(hero + " ", 1)[1]
+            if a.startswith(("raises", "bets", "calls")):
+                return True
+    return False
+
+
+def blindoff_ids(files, hero):
+    """Detect blind-off / away hands: ones where the site marks the hero as
+    'is sitting out' (walked away — the stack auto-folds/checks while absent).
+    This is the reliable signal; we deliberately do NOT guess from fold/stack
+    patterns (card-dead short-stack folding looks identical and would be a false
+    positive). Returns the set of hand IDs to exclude.
+
+    A '_voluntary' fallback is kept available but unused by default: a sitting-out
+    hand where the hero somehow acted voluntarily (e.g. an all-in blind that the
+    client posted) is still excluded, since it wasn't a real decision."""
+    bo = set()
     for f in files:
         txt = open(f, encoding="latin-1", errors="replace").read()
         for h in re.split(r"(?=Game Hand #)", txt):
             if f"Dealt to {hero} [" not in h:
+                continue
+            if re.search(rf"Seat \d+: {re.escape(hero)} \([\d.]+\) is sitting out", h):
+                bo.add(_hand_id(h))
+    return bo
+
+
+def compute(files, hero, skip_ids=None):
+    skip_ids = skip_ids or set()
+    H = dict(hands=0, vpip=0, pfr=0, tb_opp=0, tb=0, f3b_opp=0, f3b=0,
+             cb_opp=0, cb=0, fcb_opp=0, fcb=0, saw_flop=0, wtsd=0, wsd=0, blindoff=0)
+    for f in files:
+        txt = open(f, encoding="latin-1", errors="replace").read()
+        for h in re.split(r"(?=Game Hand #)", txt):
+            if f"Dealt to {hero} [" not in h:
+                continue
+            if _hand_id(h) in skip_ids:
+                H['blindoff'] += 1
                 continue
             H['hands'] += 1
             seq = pre_seq(h)
@@ -161,9 +202,12 @@ def main():
     files, used = find_files(a.dir, a.date)
     if not files:
         print("No Hold'em hand-history files found in", a.dir); sys.exit(1)
-    H = compute(files, hero)
+    bo = blindoff_ids(files, hero)
+    H = compute(files, hero, skip_ids=bo)
     n = H['hands']
     print(f"Session {used} — Hold'em hands dealt to {hero}: {n}")
+    if H['blindoff']:
+        print(f"  (excluded {H['blindoff']} trailing blind-off hands — walked away / stack folded to zero)")
     if n < 200:
         print("  (small sample — treat stats as directional, not settled)")
     print()

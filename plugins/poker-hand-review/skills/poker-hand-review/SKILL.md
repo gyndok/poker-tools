@@ -4,42 +4,28 @@ description: >-
   Review a poker session's hands one-by-one with GTO analysis. Use whenever the
   user asks to "review my hands", "review today's hands", "GTO review", "hand
   review", "check my line", "go through my hands", or anything about analyzing
-  America's Cardroom / ACR (Winning Poker Network) hand histories. Finds the most
-  recent session in the user's hand-history folder, lists every hand the user did
-  NOT fold preflop, then walks through them interactively with a street-by-street
-  GTO verdict on whichever hand the user picks. Also computes session tracker
-  statistics (VPIP, PFR, 3-Bet, Fold-to-3Bet, C-Bet, Fold-to-C-Bet, WTSD, W$SD)
-  and a play-style read (TAG / LAG / etc.) on request. Can also generate a
-  polished session-review PDF (per-hand verdicts + summary + stats) at the end
-  of a review.
+  America's Cardroom / ACR hand histories. Finds the most recent session in the
+  user's hand-history folder, lists every hand the user did NOT fold preflop,
+  then walks through them interactively with a street-by-street GTO verdict on
+  whichever hand the user picks. Also computes session tracker statistics
+  (VPIP, PFR, 3-Bet, Fold-to-3Bet, C-Bet, Fold-to-C-Bet, WTSD, W$SD) and a
+  play-style read (TAG / LAG / etc.) on request. Can also generate a polished
+  session-review PDF (per-hand verdicts + summary + stats) at the end of a review.
 ---
 
 # Poker Hand Review (ACR, GTO)
 
-Interactive hand-review workflow for America's Cardroom (ACR / Winning Poker
-Network) hand histories. The flow: locate the most recent session, list the hands
-the hero voluntarily played (did not fold preflop), then review them one at a time
-with a GTO read in the house style below.
-
-## First-time setup
-
-This skill needs read access to the folder where the ACR client saves hand
-histories, plus a sandbox/shell that can run Python (i.e. Claude Cowork or Claude
-Code — not plain web chat, which can't reach local files).
-
-1. Connect the ACR hand-history folder when prompted (request_cowork_directory),
-   or point the skill at it. ACR stores hands under a per-screen-name folder, e.g.
-   `…/AmericasCardroom/handHistory/<your_screen_name>/HH*.txt`. The exact root
-   varies by OS and install; ask the user if it isn't obvious.
-2. The hero (the player being reviewed) is inferred from the folder name — ACR
-   names the hand-history subfolder after the screen name. If it can't be inferred,
-   ask the user for their screen name and pass it to the scripts with `--hero`.
+This skill reproduces an interactive hand-review workflow for America's Cardroom
+(ACR / Winning Poker Network) hand histories. The flow: locate the most recent
+session, list the hands the hero voluntarily played (did not fold preflop), then
+review them one at a time with a GTO read in the established house style.
 
 ## Tone — blunt, no sugarcoating
 
 This is the most important behavioral rule in this skill. When the hero misplays
 a hand, say so directly and label it a mistake. Do not soften, hedge, or bury a
-leak inside praise. A review that flatters costs the player money.
+leak inside praise. The user has explicitly asked not to have errors sugarcoated,
+and a review that flatters costs them money.
 
 - Call a leak a leak or a mistake, plainly. "This is a clear mistake," "this
   call is bad," "this is spew," "you're lighting chips on fire here" — use direct
@@ -55,6 +41,19 @@ leak inside praise. A review that flatters costs the player money.
   "this is right, move on" — don't dismiss a good line just to stay critical.
 - Praise only genuinely good, non-obvious plays, and keep it to a sentence. The
   default register is critical and corrective, not encouraging.
+
+## First-time setup
+
+This skill needs read access to the folder where the ACR client saves hand
+histories, plus a sandbox/shell that can run Python (Claude Cowork or Claude
+Code — not plain web chat, which can't reach local files).
+
+1. Connect the ACR hand-history folder when prompted (request_cowork_directory).
+   ACR stores hands under a per-screen-name folder, e.g.
+   `…/AmericasCardroom/handHistory/<your_screen_name>/HH*.txt`.
+2. The hero (player being reviewed) is inferred from the folder name (ACR names
+   the subfolder after the screen name). If it can't be inferred, ask the user
+   for their screen name and pass it to the scripts with `--hero`.
 
 ## Hero and folders
 
@@ -74,14 +73,14 @@ leak inside praise. A review that flatters costs the player money.
     stamps files in UTC, so a late-night local session may be dated the next day —
     if the user says "today" and only a next-day file exists, that's the one.)
 - Hands within a file are delimited by lines starting `Game Hand #`.
-- Hero hole cards: `Dealt to <hero> [Xx Yy]` (where `<hero>` is the screen name).
+- Hero hole cards: `Dealt to <hero> [Xx Yy]`.
 - Preflop fold: hero has a `folds` action in the segment before `*** FLOP ***`.
   A hand counts as "did not fold preflop" if the hero `raises`, `bets`, `calls`,
   or `checks` (BB option) preflop and reaches `*** FLOP ***` or a showdown.
 - Streets: `*** HOLE CARDS ***`, `*** FLOP ***`, `*** TURN ***`,
   `*** RIVER ***`, `*** SHOW DOWN ***`, `*** SUMMARY ***`.
-- Results: `<hero> collected <amt>`, `<hero> shows […]`, and the `*** SUMMARY ***`
-  seat lines (e.g. `won 17920.00`).
+- Results: `<hero> collected <amt>`, `<hero> shows […]`, and the
+  `*** SUMMARY ***` seat lines (e.g. `won 17920.00`).
 - Blinds/level are in the header: `Level 11 (1000.00/2000.00)`; antes posted per
   player. Compute BB depth as `stack / big_blind`.
 
@@ -152,8 +151,8 @@ to frame the exact node for PioSOLVER / GTO Wizard if the user wants precise
 frequencies. For ICM-heavy spots, an ICM calculator / ICMIZER read is the
 authoritative tool — flag that too.
 
-Keep it concise and in prose — minimal bullet lists, no over-formatting. One
-clear refinement per hand beats a wall of theory.
+Keep it concise and in prose (per the user's preference) — minimal bullet lists,
+no over-formatting. One clear refinement per hand beats a wall of theory.
 
 ## Session statistics + play-style read
 
@@ -251,6 +250,28 @@ The JSON spec (write card suits as unicode pips — ♠♥♦♣ — directly in
 - For a large session you haven't reviewed hand-by-hand yet, it's fine to do the
   per-hand analysis as part of building the spec — but keep the same accuracy
   bar (lay out exact card combinations before calling a draw/made hand).
+
+## Forced blind-offs (walked away)
+
+If the player leaves the table and lets the stack fold/check to zero, those hands
+aren't real decisions and would unfairly drag down the stats — so they are
+excluded automatically. The reliable signal is the site marking the hero
+**`Seat N: <hero> (stack) is sitting out`** in a hand; both `scripts/parse_hands.py`
+and `scripts/stats.py` skip any hand with that marker (so blind-off hands never
+appear in the hand list and don't count toward VPIP/PFR/3-Bet/etc.). `stats.py`
+prints how many were excluded:
+
+```
+(excluded 10 trailing blind-off hands — walked away / stack folded to zero)
+```
+
+When this happens, say so in the review and the PDF summary — e.g. "Excluded N
+blind-off hands at the end (you stepped away); the real session ended when you
+left, not when the stack hit zero." Do NOT treat the blind-off folds as a leak or
+a bust-on-play. Deliberately do not guess blind-offs from fold/stack patterns
+alone (card-dead short-stack folding looks identical and would be a false
+positive) — rely on the "sitting out" marker. If a session legitimately busted in
+play (no sitting-out marker), nothing is excluded.
 
 ## Notes
 
