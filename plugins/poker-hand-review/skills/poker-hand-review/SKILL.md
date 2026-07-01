@@ -301,6 +301,20 @@ params; in Pio, build the tree from them. When the spot is ICM- or PKO-sensitive
 say so and point them to an ICM solve (GTO Wizard ICM / ICMIZER), since a
 chip-EV solve will give the wrong answer there.
 
+Do NOT eyeball the pot geometry — `scripts/spot.py` computes it exactly from the
+raw hand so the `Effective`, `Pot / behind`, SPR, and `Bet sizes` fields are
+correct rather than mental-math approximations:
+
+```
+python3 scripts/spot.py --dir <folder> [--hero <name>] <N> [--street flop|turn|river]
+```
+
+`<N>` is the same hand number as `parse_hands.py list`. It prints blinds, the
+effective stack and behind stack in bb, the pot at the start of the chosen street
+(from the site's printed pot), SPR, and each bet on that street as a % of the pot
+before it — plus a machine-readable `RAW:` line. Pull those numbers straight into
+the spot-sheet. It reports inputs only, never frequencies or EV.
+
 ## Study queue (what to drill next)
 
 Close a review with a short, prioritized "study queue" — the specific GTO Wizard

@@ -1,7 +1,7 @@
 {
   "name": "poker-hand-review",
   "description": "Review an ACR/WPN poker session hand-by-hand with blunt GTO analysis, ICM/stack-depth adjustments, and tracker stats (VPIP, PFR, 3-Bet, C-Bet, WTSD…) with a play-style read.",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "author": {
     "name": "Geffrey"
   },

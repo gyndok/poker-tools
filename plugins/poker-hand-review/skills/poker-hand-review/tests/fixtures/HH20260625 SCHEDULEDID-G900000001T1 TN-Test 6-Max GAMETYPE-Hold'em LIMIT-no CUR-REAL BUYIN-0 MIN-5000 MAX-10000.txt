@@ -1,0 +1,250 @@
+Game Hand #1001 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:00:00 UTC
+Table '1' 6-max Seat #6 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: hero (10000.00)
+Seat 6: vill6 (10000.00)
+vill1 posts the small blind 50.00
+vill2 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [As Kd]
+vill3 folds
+vill4 folds
+hero raises 250.00 to 250.00
+vill6 folds
+vill1 folds
+vill2 folds
+Uncalled bet (150.00) returned to hero
+hero did not show and won 150.00
+*** SUMMARY ***
+Total pot 350.00
+Seat 5: hero (cutoff) did not show and won 150.00
+
+Game Hand #1002 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:01:00 UTC
+Table '1' 6-max Seat #1 is the button
+Seat 1: hero (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: vill6 (10000.00)
+vill2 posts the small blind 50.00
+vill3 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [Qh Qs]
+vill4 raises 250.00 to 250.00
+vill5 folds
+vill6 folds
+hero raises 550.00 to 800.00
+vill2 folds
+vill3 folds
+vill4 folds
+Uncalled bet (550.00) returned to hero
+hero did not show and won 650.00
+*** SUMMARY ***
+Total pot 1150.00
+Seat 1: hero (button) did not show and won 650.00
+
+Game Hand #1003 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:02:00 UTC
+Table '1' 6-max Seat #2 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: hero (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: vill6 (10000.00)
+vill3 posts the small blind 50.00
+vill4 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [9h 9c]
+vill5 folds
+vill6 folds
+vill1 raises 250.00 to 250.00
+hero calls 250.00
+vill3 folds
+vill4 folds
+*** FLOP *** [2s 7d Kc]
+Main pot 650.00
+vill1 bets 300.00
+hero folds
+Uncalled bet (300.00) returned to vill1
+vill1 did not show and won 650.00
+*** SUMMARY ***
+Total pot 650.00
+Board [2s 7d Kc]
+Seat 2: hero (button) folded on the Flop
+
+Game Hand #1004 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:03:00 UTC
+Table '1' 6-max Seat #3 is the button
+Seat 1: hero (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: vill6 (10000.00)
+vill4 posts the small blind 50.00
+vill5 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [Ad Qc]
+vill6 folds
+hero raises 250.00 to 250.00
+vill2 calls 250.00
+vill3 folds
+vill4 folds
+vill5 folds
+*** FLOP *** [Ah 7d 2c]
+Main pot 650.00
+hero bets 300.00
+vill2 folds
+Uncalled bet (300.00) returned to hero
+hero did not show and won 650.00
+*** SUMMARY ***
+Total pot 650.00
+Board [Ah 7d 2c]
+Seat 1: hero (hijack) did not show and won 650.00
+
+Game Hand #1005 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:04:00 UTC
+Table '1' 6-max Seat #4 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: hero (10000.00)
+vill5 posts the small blind 50.00
+hero posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [7s 2h]
+vill1 folds
+vill2 folds
+vill3 folds
+vill4 calls 100.00
+vill5 calls 50.00
+hero checks
+*** FLOP *** [Ks 8d 3c]
+Main pot 300.00
+vill5 checks
+hero checks
+vill4 bets 150.00
+vill5 folds
+hero folds
+Uncalled bet (150.00) returned to vill4
+vill4 did not show and won 300.00
+*** SUMMARY ***
+Total pot 300.00
+Board [Ks 8d 3c]
+Seat 6: hero (big blind) folded on the Flop
+
+Game Hand #1006 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:05:00 UTC
+Table '1' 6-max Seat #5 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: hero (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: vill6 (10000.00)
+vill6 posts the small blind 50.00
+vill1 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [Ts Th]
+hero raises 250.00 to 250.00
+vill3 folds
+vill4 folds
+vill5 raises 550.00 to 800.00
+vill6 folds
+vill1 folds
+hero folds
+Uncalled bet (550.00) returned to vill5
+vill5 did not show and won 700.00
+*** SUMMARY ***
+Total pot 700.00
+Seat 2: hero (under the gun) folded on the Pre-Flop
+
+Game Hand #1007 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:06:00 UTC
+Table '1' 6-max Seat #6 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: hero (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: vill6 (10000.00)
+vill1 posts the small blind 50.00
+vill2 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [3d 2c]
+hero folds
+vill4 folds
+vill5 folds
+vill6 folds
+vill1 folds
+Uncalled bet (50.00) returned to vill2
+vill2 did not show and won 100.00
+*** SUMMARY ***
+Total pot 100.00
+Seat 3: hero (under the gun) folded on the Pre-Flop
+
+Game Hand #1008 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:07:00 UTC
+Table '1' 6-max Seat #6 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: hero (5000.00) is sitting out
+Seat 5: vill5 (10000.00)
+Seat 6: vill6 (10000.00)
+vill1 posts the small blind 50.00
+vill2 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [Jd 4c]
+vill3 folds
+hero folds
+vill5 folds
+vill6 folds
+vill1 folds
+Uncalled bet (50.00) returned to vill2
+vill2 did not show and won 100.00
+*** SUMMARY ***
+Total pot 100.00
+Seat 4: hero (button) folded on the Pre-Flop
+
+Game Hand #1009 - Tournament #900000001 - Holdem(No Limit) - Level 6 (50.00/100.00)- 2026/06/25 17:08:00 UTC
+Table '1' 6-max Seat #6 is the button
+Seat 1: vill1 (10000.00)
+Seat 2: vill2 (10000.00)
+Seat 3: vill3 (10000.00)
+Seat 4: vill4 (10000.00)
+Seat 5: vill5 (10000.00)
+Seat 6: hero (10000.00)
+vill1 posts the small blind 50.00
+vill2 posts the big blind 100.00
+*** HOLE CARDS ***
+Dealt to hero [Ah Kh]
+vill3 folds
+vill4 folds
+vill5 folds
+hero raises 250.00 to 250.00
+vill1 folds
+vill2 calls 150.00
+*** FLOP *** [Kd 7s 2h]
+Main pot 550.00
+hero bets 275.00
+vill2 calls 275.00
+*** TURN *** [Kd 7s 2h] [3c]
+Main pot 1100.00
+hero checks
+vill2 checks
+*** RIVER *** [Kd 7s 2h 3c] [9d]
+Main pot 1100.00
+hero checks
+vill2 checks
+*** SHOW DOWN ***
+Main pot 1100.00
+hero shows [Ah Kh] (a pair of Kings)
+vill2 shows [Qh Jh] (high card)
+hero collected 1100.00 from main pot
+*** SUMMARY ***
+Total pot 1100.00
+Board [Kd 7s 2h 3c 9d]
+Seat 6: hero (button) showed [Ah Kh] and won 1100.00 with a pair of Kings
+Seat 2: vill2 (big blind) mucked

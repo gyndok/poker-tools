@@ -42,29 +42,40 @@ def split_streets(hand):
     return d
 
 
+# seat labels counting back from the button (offset 0 = BTN)
+_POS_FROM_BUTTON = ["BTN", "CO", "HJ", "LJ", "MP", "UTG+1", "UTG+2", "UTG+3"]
+
+
 def hero_positions(hand, hero):
-    """Best-effort position label from button seat + seat order."""
+    """Best-effort position label from button seat + seat order.
+
+    Blinds are read directly from the posts (the reliable signal). The other
+    seats are named by their offset from the button, and the first seat to act
+    (the earliest non-blind seat) is always UTG — so a 6-max UTG isn't mislabeled
+    as MP, which happened when the labels assumed a full 9-handed ring."""
+    if re.search(rf"{re.escape(hero)} posts the small blind", hand):
+        return "SB"
+    if re.search(rf"{re.escape(hero)} posts the big blind", hand):
+        return "BB"
     seats = {int(s): n for s, n in re.findall(r"Seat (\d+): (\S+) \(", hand)}
     btn = re.search(r"Seat #(\d+) is the button", hand)
     if not btn or not seats:
         return "?"
     btn = int(btn.group(1))
     order = sorted(seats)
-    # rotate so button is last
+    # rotate so the button is last: rot[0]=SB, rot[1]=BB, …, rot[-1]=BTN
     rot = [s for s in order if s > btn] + [s for s in order if s <= btn]
     hero_seat = next((s for s, n in seats.items() if n == hero), None)
     if hero_seat is None:
         return "?"
     idx = rot.index(hero_seat)
     n = len(rot)
-    # rot[-1]=BTN, rot[-2]=CO, rot[-3]=HJ ... rot[0]=SB? handle blinds explicitly
-    labels = {n - 1: "BTN", n - 2: "CO", n - 3: "HJ", n - 4: "MP", n - 5: "UTG+1", n - 6: "UTG"}
-    # blinds via posts
-    if re.search(rf"{re.escape(hero)} posts the small blind", hand):
-        return "SB"
-    if re.search(rf"{re.escape(hero)} posts the big blind", hand):
-        return "BB"
-    return labels.get(idx, "EP")
+    # the earliest non-blind seat (first to act preflop, rot[2]) is UTG — but only
+    # when it isn't itself the button (3-handed, where rot[2] is the BTN).
+    if idx == 2 and idx != n - 1:
+        return "UTG"
+    offset = (n - 1) - idx
+    return _POS_FROM_BUTTON[offset] if offset < len(_POS_FROM_BUTTON) else "UTG"
 
 
 def hand_rows(files, hero):
@@ -91,9 +102,17 @@ def hand_rows(files, hero):
             hole = hole.group(1) if hole else "?"
             lvl = re.search(r"Level (\d+)", h)
             if any(a.startswith("raises") for a in acts):
-                # 3bet vs open?
-                label = "3bet" if re.search(r"raises.*\n.*raises", pre) else "raise/open"
-                label = "raise/3bet"
+                # open vs 3-bet: did anyone raise before hero's first raise?
+                raises_before = 0
+                for l in pre.splitlines():
+                    m = re.match(r"(\S.*?) (folds|checks|calls|bets|raises)", l)
+                    if not m or "posts" in l:
+                        continue
+                    if m.group(1) == hero and m.group(2) == "raises":
+                        break
+                    if m.group(2) == "raises":
+                        raises_before += 1
+                label = "3bet" if raises_before else "open"
             elif any(a.startswith("calls") for a in acts):
                 label = "call"
             elif any(a.startswith("checks") for a in acts):
