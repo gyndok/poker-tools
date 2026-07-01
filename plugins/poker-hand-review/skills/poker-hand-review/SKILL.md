@@ -273,6 +273,50 @@ alone (card-dead short-stack folding looks identical and would be a false
 positive) — rely on the "sitting out" marker. If a session legitimately busted in
 play (no sitting-out marker), nothing is excluded.
 
+## Solver spot-sheets (GTO Wizard / PioSOLVER hand-off)
+
+This skill does NOT solve — it hands the user the exact node to solve elsewhere.
+For any LEAK-tagged hand (and any hand on request), emit a compact "spot-sheet"
+they can paste into GTO Wizard's AI solver or rebuild in PioSOLVER. Output only
+the *inputs* pulled from the hand history — never invent strategy frequencies or
+EV numbers (those are the solver's job, not yours).
+
+```
+SPOT — <hole cards> (Hand N, <tournament>)
+Format:        Cash 6-max | MTT 8-max | PKO | HU  (flag if PKO/ICM-sensitive)
+Effective:     <NN> bb   (blinds <sb>/<bb>, ante <a>)
+Positions:     <hero pos> vs <villain pos>
+Preflop:       <exact line, e.g. "CO opens 2.2, BB 3-bets to 9, CO calls">
+Decision node: <the street + spot to study, e.g. "turn, hero facing 66% barrel">
+Board:         <flop> [turn] [river]
+Pot / behind:  pot <P> bb, <S> bb behind  (SPR ~<x>)
+Bet sizes:     <the sizes actually used, as % pot>
+Question:      <the exact decision, e.g. "call/fold turn: 2nd pair + gutshot">
+Ranges:        <starting-range assumptions to set (opener size/pos, 3-bettor value+bluffs, etc.)>
+```
+
+Rules: every field comes from the raw hand — no fabricated sizes or cards. In
+GTO Wizard, tell the user to pick the matching preset or AI-solve with these
+params; in Pio, build the tree from them. When the spot is ICM- or PKO-sensitive,
+say so and point them to an ICM solve (GTO Wizard ICM / ICMIZER), since a
+chip-EV solve will give the wrong answer there.
+
+## Study queue (what to drill next)
+
+Close a review with a short, prioritized "study queue" — the specific GTO Wizard
+drills that target THIS session's recurring leaks, not a generic list. Map each
+leak to a concrete drill, name where to do it (Practice vs Study), and cite the
+hands it came from. Keep it to the top 2–3. Examples:
+
+- SB flat-calls  → "SB vs BTN/CO open: 3-bet-or-fold" node (Practice) — from hands X, Y.
+- Under-c-betting as PFR → "Flop c-bet as the aggressor on dry/paired boards"
+  (Study, browse those textures) — from hands X, Y.
+- Over-barrelling with no equity → "Turn barrel / give-up" spots for that board
+  class (Practice) — from hand X.
+
+The point is a focused next-session homework list tied to real leaks, so the user
+studies the exact spots they're losing EV in.
+
 ## Notes
 
 - Single-table files capture only one table's window of a tournament, so they may
